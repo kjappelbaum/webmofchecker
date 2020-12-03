@@ -1,0 +1,50 @@
+#comment_div {
+  margin-bottom: 160px;
+}
+
+.display-8 {
+  margin-bottom: 1em;
+}
+
+#chemical_name_p {
+  margin-bottom: 1em;
+}
+
+.button,
+.input,
+.textarea,
+.select select,
+.file-cta,
+.file-name,
+.pagination-previous,
+.pagination-next,
+.pagination-link,
+.pagination-ellipsis {
+  border: 2px solid transparent;
+}
+
+.button:focus:active,
+.button.is-focused:active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.button.is-primary {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: transparent;
+  color: #fff;
+}
+
+.control {
+  margin-right: 0.2em;
+}
+
+#electroncount_input {
+  margin-bottom: 2em;
+}
+
+.display-4 {
+  margin-bottom: 0.2em;
+  margin-top: 0.5em;
+  font-size: 2rem;
+}

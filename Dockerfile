@@ -9,7 +9,4 @@ COPY logging_config.ini .
 
 COPY webmofchecker ./webmofchecker
 
-COPY README.md .
-
-
 RUN pip install --no-cache-dir -r requirements.txt
