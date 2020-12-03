@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  mofchecker:
+    build: .
+    restart: always
+    environment:
+      - PORT=${PORT}
+      - WORKERS=${WORKERS}
+      - CONCURRENCY_LIMIT=${CONCURRENCY_LIMIT}
+    ports:
+      - 127.0.0.1:${PORT}:${PORT}

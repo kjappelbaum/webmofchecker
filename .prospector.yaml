@@ -1,0 +1,16 @@
+ignore-paths:
+  - docs
+  - versioneer.py
+  - mofchecker/_version.py
+
+pylint:
+  run: true
+
+pyflakes:
+  run: false
+
+pep8:
+  run: false
+
+mccabe:
+  run: false
