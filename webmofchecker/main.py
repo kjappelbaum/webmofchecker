@@ -79,7 +79,7 @@ layout = html.Div(  # pylint:disable=invalid-name
                             html.Div(
                                 [
                                     structure_component.layout(),
-                                    structure_component.options_layout(),
+                                    #structure_component.options_layout(),
                                     # structure_component.legend_layout(),
                                 ],
                                 className="col-md-4",
@@ -99,34 +99,34 @@ layout = html.Div(  # pylint:disable=invalid-name
         ),
         html.Div(
             [
-                html.Div(
-                    [
-                        html.H2("About", className="display-4"),
-                        html.P("For more details, please have a look at our paper."),
-                        html.P(
-                            [
-                                "If you want to learn more, feel free to contact ",
-                                html.A("Kevin", href="mailto:kevin.jablonka@epfl.ch"),
-                                ".",
-                            ]
-                        ),
-                        html.H2("Technical Details", className="display-4"),
-                        html.P(
-                            [
-                                "This app was implemented using ",
-                                html.A(
-                                    "crystal toolkit",
-                                    href="https://docs.crystaltoolkit.org/index.html",
-                                ),
-                                " and ",
-                                html.A("Dash", href="https://plot.ly/dash/"),
-                                ".",
-                            ]
-                        ),
-                        html.H2("Privacy", className="display-4"),
-                        html.P("We will store no personal data that can identify you."),
-                    ],
-                ),
+                # html.Div(
+                #     [
+                #         html.H2("About", className="display-4"),
+                #         html.P("For more details, please have a look at our paper."),
+                #         html.P(
+                #             [
+                #                 "If you want to learn more, feel free to contact ",
+                #                 html.A("Kevin", href="mailto:kevin.jablonka@epfl.ch"),
+                #                 ".",
+                #             ]
+                #         ),
+                #         html.H2("Technical Details", className="display-4"),
+                #         html.P(
+                #             [
+                #                 "This app was implemented using ",
+                #                 html.A(
+                #                     "crystal toolkit",
+                #                     href="https://docs.crystaltoolkit.org/index.html",
+                #                 ),
+                #                 " and ",
+                #                 html.A("Dash", href="https://plot.ly/dash/"),
+                #                 ".",
+                #             ]
+                #         ),
+                #         html.H2("Privacy", className="display-4"),
+                #         html.P("We will store no personal data that can identify you."),
+                #     ],
+                # ),
                 html.Hr(),
                 html.Footer(
                     "© Laboratory of Molecular Simulation (LSMO), École polytechnique fédérale de Lausanne (EPFL). Web app version {}".format(
