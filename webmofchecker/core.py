@@ -8,12 +8,10 @@ BAD_COLOR = "#FCAFAF"
 
 
 def run_check(s, fmt="cif"):
-    print(s)
     structure = Structure.from_dict(s, fmt=fmt)
 
     mofcheckerinstance = MOFChecker(structure)
     result = mofcheckerinstance.get_mof_descriptors()
-    print(result)
     rows = []
     for k, v in result.items():
         if k not in ["name", "path", "density"]:
@@ -27,7 +25,7 @@ def run_check(s, fmt="cif"):
             rows.append(
                 html.Tr(
                     [
-                        html.Td(
+                        html.Td(  
                             [
                                 k.replace("_", " ").replace("oms", "open metal site"),
                                 tooltip,
