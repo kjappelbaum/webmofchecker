@@ -9,6 +9,10 @@ from pymatgen import Structure, Lattice
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from .core import run_check
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.wsgi import WSGIMiddleware
+
 
 EXTERNAL_STYLESHEETS = [
     "./assets/style.css",
@@ -23,7 +27,7 @@ structure_component = ctc.StructureMoleculeComponent(  # pylint:disable=invalid-
     STRUCTURE, id="structure", bonding_strategy="JmolNN", color_scheme="Jmol",
 )
 
-app = dash.Dash(  # pylint:disable=invalid-name
+dash_app = dash.Dash(  # pylint:disable=invalid-name
     __name__,
     external_stylesheets=EXTERNAL_STYLESHEETS,
     meta_tags=[
@@ -35,8 +39,8 @@ app = dash.Dash(  # pylint:disable=invalid-name
 )
 
 
-server = app.server  # pylint:disable=invalid-name
-app.title = "webmofchecker"
+server = dash_app.server  # pylint:disable=invalid-name
+dash_app.title = "webmofchecker"
 
 
 layout = html.Div(  # pylint:disable=invalid-name
@@ -79,7 +83,7 @@ layout = html.Div(  # pylint:disable=invalid-name
                             html.Div(
                                 [
                                     structure_component.layout(),
-                                    #structure_component.options_layout(),
+                                    # structure_component.options_layout(),
                                     # structure_component.legend_layout(),
                                 ],
                                 className="col-md-4",
@@ -142,10 +146,10 @@ layout = html.Div(  # pylint:disable=invalid-name
     **{"data-iframe-height": ""}
 )
 
-ctc.register_crystal_toolkit(app, layout=layout)
+ctc.register_crystal_toolkit(dash_app, layout=layout)
 
 
-@app.callback(
+@dash_app.callback(
     Output("resultdiv", "children"),
     [Input("memorystore", "modified_timestamp")],
     [State("memorystore", "data")],
@@ -164,7 +168,7 @@ def run_prediction(_, store):
         raise PreventUpdate
 
 
-@app.callback(
+@dash_app.callback(
     [Output("memorystore", "data"), Output("upload_info", "children")],
     [Input("upload_cif", "contents")],
     [State("upload_cif", "filename"), State("memorystore", "data")],
@@ -194,7 +198,7 @@ def update_structure(content, new_filename, store):
     return store, ""
 
 
-@app.callback(
+@dash_app.callback(
     Output(structure_component.id(), "data"),
     [Input("memorystore", "modified_timestamp")],
     [State("memorystore", "data")],
@@ -210,6 +214,17 @@ def update_structure_viz(_, store):
         raise PreventUpdate
 
 
+app = FastAPI()
+
+
+@app.get("/hello_fastapi")
+def read_main():
+    return {"message": "Hello World"}
+
+
+# Now mount you dash server into main fastapi application
+app.mount("/", WSGIMiddleware(dash_app.server))
+
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    uvicorn.run(app, port=8000)
 
