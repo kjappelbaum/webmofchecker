@@ -1,4 +1,5 @@
-gunicorn
+uvicorn[standard]
+fastapi
 crystal-toolkit
 mofchecker
 dash_bootstrap_components

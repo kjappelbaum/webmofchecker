@@ -14,4 +14,5 @@ COPY webmofchecker ./webmofchecker
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD gunicorn -b 0.0.0.0:$PORT  webmofchecker.main:server
+CMD uvicorn webmofchecker.main:app --host=0.0.0.0 --port=$PORT --workers=$WORKERS --loop="uvloop" --http="httptools" --log-config=logging.ini --limit-concurrency=$CONCURRENCY_LIMIT
+
