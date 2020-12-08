@@ -8,7 +8,8 @@ from . import __version__
 from pymatgen import Structure, Lattice
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-from .core import run_check
+from .core import run_check, run_check_api
+from .models import CheckResponse, MOFInput
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.wsgi import WSGIMiddleware
@@ -156,7 +157,7 @@ ctc.register_crystal_toolkit(dash_app, layout=layout)
 )
 def run_prediction(_, store):
     """Returns the prediction table"""
-    app.logger.info("triggering prediction update")
+    dash_app.logger.info("triggering prediction update")
     try:
         if store["structure"] is not None:
 
@@ -175,13 +176,13 @@ def run_prediction(_, store):
 )
 def update_structure(content, new_filename, store):
     """Loads the structure into the memory div"""
-    app.logger.info("triggered structure update callback")
+    dash_app.logger.info("triggered structure update callback")
     try:
         filename = store["filename"]
 
         # check if new file was uploaded
         if new_filename and new_filename != filename:
-            app.logger.info("updating structure")
+            dash_app.logger.info("updating structure")
             structure_str = drc.b64_to_str(content)
             try:
                 structure_object = Structure.from_str(structure_str, fmt="cif")
@@ -205,7 +206,7 @@ def update_structure(content, new_filename, store):
 )
 def update_structure_viz(_, store):
     """Updates the crystaltoolkit visualizer"""
-    app.logger.info("triggering structure viz update")
+    dash_app.logger.info("triggering structure viz update")
     try:
         if store["structure"] is not None:
             return Structure.from_dict(store["structure"])
@@ -217,9 +218,9 @@ def update_structure_viz(_, store):
 app = FastAPI()
 
 
-@app.get("/hello_fastapi")
-def read_main():
-    return {"message": "Hello World"}
+@app.post("/api/v1/checkMOF", response_model=CheckResponse)
+def api_v1_run_check(parameters: MOFInput):
+    return run_check_api(parameters.fileContent, parameters.extension)
 
 
 # Now mount you dash server into main fastapi application
