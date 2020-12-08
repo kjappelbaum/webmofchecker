@@ -14,5 +14,5 @@ COPY webmofchecker ./webmofchecker
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD uvicorn webmofchecker.main:app --host=0.0.0.0 --port=$PORT --workers=$WORKERS --loop="uvloop" --http="httptools" --log-config=logging.ini --limit-concurrency=$CONCURRENCY_LIMIT
+CMD uvicorn webmofchecker.main:app --host=0.0.0.0 --port=$PORT --workers=2 --loop="uvloop" --http="httptools" --log-config=logging.ini --limit-concurrency=6
 
