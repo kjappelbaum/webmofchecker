@@ -12,7 +12,11 @@ Web interface for the [mofchecker package](https://github.com/kjappelbaum/mofche
 
 Build the Docker image using `./build_docker`. Then start the app using `./run_docker`.
 
-### API 
+### Frontend
+
+A user interface with which a `cif` can be uploaded (using drag and drop) is served at `/`.
+
+### API documentation
 
 The API docs can be found at `/docs`.
 A post to `/api/v1/checkMOF` with the content of `.example_request.json` should give output like
