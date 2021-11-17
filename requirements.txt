@@ -11,4 +11,4 @@ habanero~=0.7.4
 dash_mp_components~=0.1.9
 robocrys~=0.2.6
 maggma~=0.24.2
-dscribe~=0.4.0
+dscribe~=1.2.0
