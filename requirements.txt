@@ -1,4 +1,4 @@
-uvicorn[standard]~=0.12.3
+uvicorn[standard]~=0.18.2
 fastapi~=0.62.0
 crystal-toolkit~=2020.11.1
 mofchecker~=0.3.1
